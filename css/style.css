@@ -365,7 +365,8 @@ html:not(.js) .curtain { display: none; }
   .hdr__bar { width: 56px; }
   .hero__title { font-size: clamp(3.4rem, 17vw, 5.6rem); }
   .hero__row { gap: 36px; }
-  .hero__stats { gap: 28px; }
+  .hero__stats { gap: 22px; }
+  .hero__stats dt { white-space: nowrap; font-size: 0.6rem; letter-spacing: 0.14em; }
   .hero__stats dd { font-size: 1.6rem; }
   .band--a { width: 70vw; left: 40%; }
   .pkgs, .times, .fields { grid-template-columns: 1fr; }

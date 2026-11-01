@@ -529,6 +529,7 @@
       document.body.classList.toggle("mbar-on", layoutST.isActive);
     }
     ScrollTrigger.addEventListener("refresh", syncUI);
+    ScrollTrigger.addEventListener("scrollEnd", syncUI);
     ScrollTrigger.create({
       trigger: ".steps", start: "top 60%", end: "bottom bottom",
       onUpdate: (self) => gsap.set(bar, { scaleX: self.progress })
@@ -554,6 +555,9 @@
   }
 
   // ---------- Boot ----------
+  // Always open at the top, so the curtain intro plays on the hero
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
   renderPackages();
   renderCats();
   renderTimelines();
