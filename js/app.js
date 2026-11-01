@@ -526,7 +526,7 @@
       let n = 0;
       stepSTs.forEach((st, i) => { if (st.isActive) n = i + 1; });
       num.textContent = pad(n) + " / " + pad(steps.length);
-      document.body.classList.toggle("mbar-on", layoutST.isActive);
+      document.body.classList.toggle("mbar-on", !!layoutST.isActive);
     }
     ScrollTrigger.addEventListener("refresh", syncUI);
     ScrollTrigger.addEventListener("scrollEnd", syncUI);
