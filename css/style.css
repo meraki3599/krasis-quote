@@ -327,6 +327,28 @@ html:not(.js) .curtain { display: none; }
 .done__row { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
 .done__ref { color: var(--accent); }
 
+/* "Switch to Premium" suggestion */
+.upsell { position: fixed; inset: 0; z-index: 140; display: grid; place-items: center; padding: 20px; background: rgba(0, 0, 0, 0.66); }
+.upsell__panel {
+  position: relative; width: min(640px, 100%); padding: 48px 44px 40px;
+  border: 1px solid var(--line); border-radius: 24px; background: var(--bg-raised);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+}
+.upsell__plus { right: 24px; top: 24px; }
+.upsell__eyebrow { margin: 0 0 22px; }
+.upsell__title { margin: 0; font-weight: 300; font-size: clamp(2.4rem, 5.6vw, 3.8rem); line-height: 1; letter-spacing: -0.045em; }
+.upsell__title #upsellSave { color: var(--accent); }
+.upsell__body { margin: 24px 0 34px; color: var(--text-body); font-size: 1rem; }
+.upsell__row { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 28px; }
+.upsell__keep { color: var(--text-mute); }
+@media (max-width: 767px) {
+  .upsell { align-items: end; padding: 0; }
+  .upsell__panel { width: 100%; border-radius: 24px 24px 0 0; padding: 36px var(--margin) calc(32px + env(safe-area-inset-bottom, 0px)); }
+  .upsell__row .btn { width: 100%; justify-content: space-between; }
+}
+
+.cat__note { margin: 4px 0 14px; color: var(--text-mute); font-size: 0.9rem; }
+
 .toast { position: fixed; left: 50%; bottom: 32px; z-index: 160; transform: translate(-50%, 20px); padding: 12px 20px; border-radius: 999px; background: var(--text-warm); color: var(--bg); font-size: 0.82rem; font-weight: 500; opacity: 0; pointer-events: none; transition: opacity 0.4s, transform 0.6s var(--ease-out); }
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 

@@ -13,7 +13,7 @@
   <meta property="og:image" content="https://krasis.in/assets/og/og-card.png">
   <link rel="preload" href="assets/fonts/montserrat-latin-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=6">
   <script>document.documentElement.className = "js";</script>
 </head>
 <body>
@@ -157,13 +157,26 @@
     </div>
   </div>
 
+  <div class="upsell" id="upsell" hidden>
+    <div class="upsell__panel" role="dialog" aria-modal="true" aria-labelledby="upsellTitle" aria-describedby="upsellBody">
+      <span class="plus plus--accent upsell__plus" aria-hidden="true"></span>
+      <p class="label upsell__eyebrow"><span class="dot"></span>A better deal</p>
+      <h2 class="upsell__title" id="upsellTitle"><span class="line"><span>Switch to Premium,</span></span><span class="line serif"><span>save <span id="upsellSave">₹5,000</span>.</span></span></h2>
+      <p class="upsell__body" id="upsellBody"></p>
+      <div class="upsell__row">
+        <button class="btn btn--lg btn--solid" type="button" id="upsellSwitch"><span id="upsellSwitchLabel">Switch to Premium</span><svg class="btn__arrow" viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg><span class="btn__dot"></span></button>
+        <button class="link-draw label upsell__keep" type="button" id="upsellKeep">Keep Standard</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script defer src="assets/vendor/gsap.min.js"></script>
   <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
   <script defer src="assets/vendor/CustomEase.min.js"></script>
   <script defer src="assets/vendor/lenis.min.js"></script>
-  <script defer src="js/data.js?v=5"></script>
-  <script defer src="js/app.js?v=5"></script>
+  <script defer src="js/data.js?v=6"></script>
+  <script defer src="js/app.js?v=6"></script>
 </body>
 </html>

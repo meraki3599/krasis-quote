@@ -53,13 +53,24 @@ window.QUOTE = {
     }
   ],
 
+  // Premium's extras, sold one by one to Standard customers. Together they cost more than the
+  // ₹5,000 upgrade, so adding all three triggers the "switch to Premium" suggestion.
   categories: [
+    {
+      id: "premium",
+      name: "Premium features",
+      note: "Free with Premium. On Standard, add the ones you want.",
+      items: [
+        { id: "updates", name: "Updates forever", desc: "Request any change to your website after launch, forever.", price: 2000, includedIn: ["premium"] },
+        { id: "walkthrough", name: "Comprehensive walkthrough", desc: "A complete guided tour of your website once the work is done.", price: 3000, includedIn: ["premium"] },
+        { id: "priority", name: "Priority pass", desc: "We assist you and build your website on priority.", price: 5000, includedIn: ["premium"] }
+      ]
+    },
     {
       id: "pages",
       name: "Pages & content",
       items: [
         { id: "extra-page", name: "Extra pages", desc: "Each package covers up to 5 pages. Add as many more as you need.", price: 2000, unit: "per page", qty: { max: 20 } },
-        { id: "copy", name: "Copywriting", desc: "We write the words for every page, in your brand's voice.", price: 5000 },
         { id: "blog", name: "Blog or news section", desc: "A listing page and article template you can keep posting to.", price: 4000 },
         { id: "language", name: "Second language", desc: "Your whole site in one more language, with a language switcher.", price: 5000 }
       ]
@@ -87,24 +98,12 @@ window.QUOTE = {
       ]
     },
     {
-      id: "growth",
-      name: "Growth & launch",
+      id: "launch",
+      name: "Launch & domain",
       items: [
         { id: "seo", name: "SEO setup", desc: "Page titles, sitemap, Google Search Console and structured data.", price: 4000 },
-        { id: "gbp", name: "Google Business Profile", desc: "Set up and optimised so you show up on Google Maps.", price: 3000 },
-        { id: "analytics", name: "Analytics", desc: "See who visits and what they do, privacy-friendly.", price: 1500 },
-        { id: "reel", name: "Launch Reel", desc: "A 30-second motion video to announce your site on Instagram.", price: 10000 }
-      ]
-    },
-    {
-      id: "care",
-      name: "Domain & care",
-      items: [
         { id: "domain", name: "Domain & hosting setup", desc: "We register and connect everything. The domain itself is billed at cost.", price: 2000 },
-        { id: "email", name: "Business email", desc: "you@yourbrand.com, set up and working.", price: 1500 },
-        { id: "walkthrough", name: "Full walkthrough", desc: "A complete guided tour of your site after launch.", price: 1500, includedIn: ["premium"] },
-        { id: "priority", name: "Priority pass", desc: "Your project moves to the front of the queue.", price: 3000, includedIn: ["premium"] },
-        { id: "updates", name: "Updates plan", desc: "Request any change to your site after launch.", price: 2000, unit: "per month", recurring: true, includedIn: ["premium"], includedLabel: "Forever, in Premium" }
+        { id: "email", name: "Business email", desc: "you@yourbrand.com, set up and working.", price: 3000 }
       ]
     }
   ],

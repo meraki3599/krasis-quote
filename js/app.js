@@ -124,6 +124,7 @@
     $("#catBlocks").innerHTML = Q.categories.map((c, i) =>
       '<div class="cat" id="cat-' + c.id + '" data-cat-block="' + c.id + '">' +
       '<div class="cat__head"><span class="label">' + pad(i + 1) + '</span><h3 class="cat__title">' + esc(c.name) + '</h3><span class="label cat__count" data-catcount="' + c.id + '"></span></div>' +
+      (c.note ? '<p class="cat__note">' + esc(c.note) + "</p>" : "") +
       c.items.map((id) => itemHTML(items[id.id])).join("") + "</div>").join("");
   }
 
@@ -247,20 +248,35 @@
     $("#packages").addEventListener("change", (e) => {
       if (e.target.name !== "package") return;
       const first = !state.pkg;
+      const hadAll = allPremiumOnStandard();
       state.pkg = e.target.value;
       update({ pkgChanged: true });
       if (first) fly($(".pkg__price", e.target.closest(".pkg")), pkgById(state.pkg).price);
+      if (!hadAll && allPremiumOnStandard()) setTimeout(showUpsell, reduced ? 0 : 700);
     });
 
     $("#catBlocks").addEventListener("change", (e) => {
       const input = e.target;
       if (input.type !== "checkbox") return;
       const it = items[input.value];
+      const hadAll = allPremiumOnStandard();
       state.items[it.id] = input.checked ? 1 : 0;
       if (!state.items[it.id]) delete state.items[it.id];
       update();
       if (input.checked) fly($("[data-price]", input.closest(".item")), it.price);
+      if (!hadAll && allPremiumOnStandard()) setTimeout(showUpsell, reduced ? 0 : 1100);
     });
+
+    $("#upsellSwitch").addEventListener("click", () => {
+      const saving = upsellSaving();
+      state.pkg = "premium";
+      premiumItems.forEach((it) => { delete state.items[it.id]; });
+      update({ pkgChanged: true });
+      hideUpsell();
+      toast("Switched to Premium. You saved " + inr(saving) + ".");
+    });
+    $("#upsellKeep").addEventListener("click", hideUpsell);
+    $("#upsell").addEventListener("click", (e) => { if (e.target.id === "upsell") hideUpsell(); });
 
     $("#catBlocks").addEventListener("click", (e) => {
       const btn = e.target.closest("[data-inc],[data-dec]");
@@ -303,12 +319,61 @@
     $("#sheetOpen").addEventListener("click", openSheet);
     $("#sheetClose").addEventListener("click", closeSheet);
     $("#scrim").addEventListener("click", closeSheet);
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSheet(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      if (!$("#upsell").hidden) hideUpsell(); else closeSheet();
+    });
 
     $("#copyBtn").addEventListener("click", () => copy(quoteText()));
     $("#quote").addEventListener("submit", submit);
     $("#againBtn").addEventListener("click", restart);
     ["#f-name", "#f-email"].forEach((s) => $(s).addEventListener("input", () => $(s).closest(".field").classList.contains("is-invalid") && validate()));
+  }
+
+  // ---------- "Switch to Premium" suggestion ----------
+  // Premium's extras are also sold to Standard customers; once a Standard quote has all of them,
+  // Premium is cheaper, so we say so.
+  const premiumItems = Object.keys(items).map((id) => items[id]).filter((it) => it.includedIn && it.includedIn.includes("premium"));
+  const allPremiumOnStandard = () => state.pkg === "standard" && premiumItems.length > 0 && premiumItems.every((it) => qtyOf(it.id) > 0);
+  function upsellSaving() {
+    const std = pkgById("standard"), prem = pkgById("premium");
+    return std.price + premiumItems.reduce((sum, it) => sum + it.price, 0) - prem.price;
+  }
+  let upsellFocus = null;
+  function showUpsell() {
+    if (!allPremiumOnStandard()) return;
+    const saving = upsellSaving();
+    if (saving <= 0) return;
+    const std = pkgById("standard"), prem = pkgById("premium");
+    $("#upsellSave").textContent = inr(saving);
+    $("#upsellBody").textContent = "You've added all " + premiumItems.length + " Premium features to " + std.name + ", which comes to " +
+      inr(std.price + premiumItems.reduce((s, it) => s + it.price, 0)) + ". " + prem.name + " includes every one of them for " + inr(prem.price) + ".";
+    $("#upsellSwitchLabel").textContent = "Switch to " + prem.name;
+    const box = $("#upsell");
+    upsellFocus = document.activeElement;
+    closeSheet();
+    box.hidden = false;
+    if (lenis) lenis.stop();
+    if (!reduced) {
+      gsap.timeline()
+        .fromTo(box, { backgroundColor: "rgba(0,0,0,0)" }, { backgroundColor: "rgba(0,0,0,0.66)", duration: 0.6, ease: "power2.out" })
+        .fromTo(".upsell__panel", { clipPath: "inset(100% 0% 0% 0% round 24px)", y: 40 }, { clipPath: "inset(0% 0% 0% 0% round 24px)", y: 0, duration: 0.9, ease: "kInOut" }, 0)
+        .from(".upsell__title .line > span", { yPercent: 115, duration: 1.1, stagger: 0.08 }, 0.45)
+        .from([".upsell__eyebrow", "#upsellBody", ".upsell__row"], { opacity: 0, y: 20, duration: 0.9, stagger: 0.06 }, 0.6);
+    }
+    $("#upsellSwitch").focus({ preventScroll: true });
+  }
+  function hideUpsell() {
+    const box = $("#upsell");
+    if (box.hidden) return;
+    const done = () => {
+      box.hidden = true;
+      gsap.set([box, ".upsell__panel"], { clearProps: "all" });
+      if (lenis) lenis.start();
+      if (upsellFocus && upsellFocus.focus) upsellFocus.focus({ preventScroll: true });
+    };
+    if (reduced) done();
+    else gsap.to(".upsell__panel", { opacity: 0, y: 30, duration: 0.4, ease: "power2.in", onComplete: done });
   }
 
   function openSheet() { document.body.classList.add("sheet-open"); if (lenis) lenis.stop(); }
