@@ -1,7 +1,3 @@
-# Krasis quote builder
+# krasis-quote (moved)
 
-An interactive quote form for Krasis (https://krasis.in): customers pick a package, add extras and see their price update live, then send the quote to Krasis via EmailJS.
-
-- Prices, packages, add-ons and timelines: `js/data.js`
-- Page: `index.html`, styles: `css/style.css`, logic and animation: `js/app.js`
-- After changing files, bump `?v=` on the CSS/JS links in `index.html` so browsers fetch the update.
+The Krasis quote builder now lives on the main site at https://krasis.in/book/ (source in the `meraki3599/Krasis` repo: `book/`, `js/book/`, `css/book.css`). This repo only redirects the old meraki3599.github.io/krasis-quote address there.
