@@ -213,6 +213,7 @@
     odo($("#total"), t.total, opts.instant);
     odo($("#mTotal"), t.total, opts.instant);
     $("#sMonthly").textContent = t.monthly ? "+ " + inr(t.monthly) + " / month" : "";
+    $("#resetBtn").disabled = !state.pkg && !Object.keys(state.items).length && state.timeline === Q.timelines[0].id;
     $("#sDeposit").textContent = inr(Q.deposit);
     $("#sFine").textContent = Q.depositNote + " This is an estimate; we confirm your final quote after a quick call.";
     $("#ref").textContent = state.ref;
@@ -322,6 +323,21 @@
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Escape") return;
       if (!$("#upsell").hidden) hideUpsell(); else closeSheet();
+    });
+
+    // Reset: first click arms the button, a second click within 3 seconds clears the selections
+    let armTimer;
+    const resetBtn = $("#resetBtn"), resetTxt = $(".hdr__reset-txt", resetBtn);
+    const disarm = () => { clearTimeout(armTimer); resetBtn.classList.remove("is-armed"); resetTxt.textContent = "Reset"; };
+    resetBtn.addEventListener("click", () => {
+      if (!resetBtn.classList.contains("is-armed")) {
+        resetBtn.classList.add("is-armed");
+        resetTxt.textContent = "Sure?";
+        armTimer = setTimeout(disarm, 3000);
+        return;
+      }
+      disarm();
+      resetQuote();
     });
 
     $("#copyBtn").addEventListener("click", () => copy(quoteText()));
@@ -495,6 +511,20 @@
         .from([$("#doneRef"), $("#doneLead"), $(".done__row", done)], { opacity: 0, y: 24, duration: 1, stagger: 0.08 }, 0.8);
     }
     done.focus({ preventScroll: true });
+  }
+
+  // Clears the package, add-ons and timeline (contact details stay), then returns to step 1
+  function resetQuote() {
+    state.pkg = null; state.items = {}; state.timeline = Q.timelines[0].id; state.ref = makeRef();
+    featsOpen = false;
+    closeSheet();
+    update({ pkgChanged: true });
+    toast("Quote reset");
+    const step1 = $("#step-1");
+    if (step1.getBoundingClientRect().top < 0) {
+      if (lenis) lenis.scrollTo(step1, { offset: -90, duration: 1.4 });
+      else step1.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    }
   }
 
   function restart() {

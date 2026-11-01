@@ -105,6 +105,16 @@ html:not(.js) .curtain { display: none; }
 .hdr__mid { position: absolute; left: 50%; transform: translateX(-50%); }
 .hdr__prog { display: flex; align-items: center; gap: 14px; }
 .hdr__step { font-variant-numeric: tabular-nums; color: var(--text); }
+.hdr__reset {
+  display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--text-body);
+  transition: color 0.4s, border-color 0.4s, background 0.4s, opacity 0.4s;
+}
+.hdr__reset svg { width: 13px; height: 13px; transition: transform 0.7s var(--ease-out); }
+.hdr__reset:hover { border-color: var(--line-strong); color: var(--text); }
+.hdr__reset:hover svg { transform: rotate(-200deg); }
+.hdr__reset.is-armed { background: var(--accent); border-color: var(--accent); color: #fff; }
+.hdr__reset:disabled { opacity: 0.35; pointer-events: none; }
 .hdr__bar { position: relative; width: 90px; height: 1px; background: var(--line); overflow: hidden; }
 .hdr__bar i { position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: left; }
 
@@ -314,9 +324,9 @@ html:not(.js) .curtain { display: none; }
 .mbar, .scrim { display: none; }
 
 /* Footer */
-.foot { padding-top: 120px; padding-bottom: 40px; border-top: 1px solid var(--line); margin-top: 40px; }
-.foot__mark { width: 100%; max-width: 1100px; opacity: 0.95; }
-.foot__row { display: flex; flex-wrap: wrap; gap: 14px 32px; margin-top: 40px; }
+.foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; padding-top: 48px; padding-bottom: 48px; border-top: 1px solid var(--line); margin-top: 40px; }
+.foot__mark { width: 120px; }
+.foot__row { display: flex; flex-wrap: wrap; gap: 14px 32px; }
 
 /* Success */
 .done { position: fixed; inset: 0; z-index: 150; display: flex; align-items: center; }
@@ -379,12 +389,15 @@ html:not(.js) .curtain { display: none; }
   .scrim { display: block; position: fixed; inset: 0; z-index: 85; background: rgba(0,0,0,.6); opacity: 0; pointer-events: none; transition: opacity 0.6s; }
   body.sheet-open .scrim { opacity: 1; pointer-events: auto; }
   .foot { padding-bottom: 120px; }
+  .foot__row { width: 100%; }
 }
 
 @media (max-width: 767px) {
   :root { --hdr: 64px; }
   .hdr__logo img { width: 92px; }
-  .hdr__bar { width: 56px; }
+  .hdr__bar { display: none; }
+  .hdr__prog { gap: 12px; }
+  .hdr__reset { height: 32px; padding: 0 12px; }
   .hero__title { font-size: clamp(3.4rem, 17vw, 5.6rem); }
   .hero__row { gap: 36px; }
   .hero__stats { gap: 22px; }

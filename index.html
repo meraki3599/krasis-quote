@@ -13,7 +13,7 @@
   <meta property="og:image" content="https://krasis.in/assets/og/og-card.png">
   <link rel="preload" href="assets/fonts/montserrat-latin-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=7">
   <script>document.documentElement.className = "js";</script>
 </head>
 <body>
@@ -25,6 +25,7 @@
     <a class="hdr__logo" href="https://krasis.in" aria-label="Krasis home"><img src="assets/krasis.png" alt="Krasis" width="840" height="235"></a>
     <span class="hdr__mid label">Quote builder</span>
     <div class="hdr__prog">
+      <button class="hdr__reset label" type="button" id="resetBtn" aria-label="Reset your quote"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2.5 2.5v3.5H6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="hdr__reset-txt">Reset</span></button>
       <span class="label hdr__step" id="stepNum">00 / 04</span>
       <span class="hdr__bar" aria-hidden="true"><i id="progBar"></i></span>
     </div>
@@ -129,7 +130,7 @@
     </div>
 
     <footer class="foot container">
-      <img class="foot__mark" src="assets/krasis.png" alt="Krasis" width="840" height="235" loading="lazy">
+      <a class="foot__logo" href="https://krasis.in" aria-label="Krasis home"><img class="foot__mark" src="assets/krasis.png" alt="Krasis" width="840" height="235" loading="lazy"></a>
       <div class="foot__row label">
         <a class="link-draw" href="https://krasis.in">krasis.in</a>
         <a class="link-draw" id="footMail" href="mailto:contact@krasis.in">contact@krasis.in</a>
@@ -176,7 +177,7 @@
   <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
   <script defer src="assets/vendor/CustomEase.min.js"></script>
   <script defer src="assets/vendor/lenis.min.js"></script>
-  <script defer src="js/data.js?v=6"></script>
-  <script defer src="js/app.js?v=6"></script>
+  <script defer src="js/data.js?v=7"></script>
+  <script defer src="js/app.js?v=7"></script>
 </body>
 </html>
