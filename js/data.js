@@ -92,7 +92,6 @@ window.QUOTE = {
         { id: "booking", name: "Bookings & reservations", desc: "Customers book a table, slot or appointment online.", price: 5000 },
         { id: "store", name: "Online store", desc: "Product pages, cart and payments for up to 25 products.", price: 12000 },
         { id: "menu", name: "Menu or catalogue", desc: "A filterable menu, catalogue or price list.", price: 3000 },
-        { id: "whatsapp", name: "WhatsApp button", desc: "One tap to message you from any page.", price: 1000 },
         { id: "newsletter", name: "Newsletter sign-up", desc: "Collect emails, connected to your mailing tool.", price: 1500 },
         { id: "instagram", name: "Instagram feed", desc: "Your latest posts, live on your site.", price: 2000 }
       ]
