@@ -81,7 +81,7 @@ window.QUOTE = {
       items: [
         { id: "logo", name: "Logo design", desc: "A custom logo for your brand, with two rounds of revisions.", price: 5000 },
         { id: "brand-kit", name: "Brand identity kit", desc: "Colours, typography, logo usage and a one-page brand guide.", price: 8000 },
-        { id: "hero", name: "Signature hero animation", desc: "A standout scroll-driven opening that people remember.", price: 6000 },
+        { id: "hero", name: "Enhanced hero animation", desc: "Every site comes with a hero animation. This takes it further: a custom, more advanced opening sequence built to stop people mid-scroll.", price: 6000 },
         { id: "icons", name: "Custom icons & illustrations", desc: "A matching set drawn for your brand.", price: 4000 }
       ]
     },
